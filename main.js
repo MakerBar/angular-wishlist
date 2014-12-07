@@ -14,8 +14,16 @@ listMod.factory('List', [function() {
     };
     return List;
 }]);
-listMod.service('Lists', ['List', function(List) {
+listMod.service('Lists', ['List', '$window', function(List, $window) {
     var lists = [];
+    var saved = angular.fromJson(sessionStorage.getItem("wishlists"));
+    saved.forEach(function(list_data) {
+        var l = new List(list_data.name);
+        list_data.items.forEach(function(ldi) {
+            l.addItem(ldi.name);
+        });
+        lists.push(l);
+    });
     this.getLists = function() {
         return lists;
     };
@@ -25,11 +33,16 @@ listMod.service('Lists', ['List', function(List) {
         }
         lists.push(new List(name));
     };
+    $window.addEventListener("beforeunload", function() {
+        sessionStorage.setItem("wishlists", angular.toJson(lists));
+    });
 }]);
 listMod.controller('WishlistCtrl', ['$scope', 'Lists', function($scope, Lists) {
-    Lists.addList("my-list");
-    Lists.addList("your-list");
     $scope.lists = Lists.getLists();
+    $scope.addNewList = function() {
+        Lists.addList($scope.newListName);
+        $scope.newListName = "";
+    };
 }]);
 
 var wishlist = angular.module('wishlist', ['ngRoute', 'listMod']).
