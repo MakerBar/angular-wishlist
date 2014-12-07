@@ -49,13 +49,15 @@ listMod.controller('WishlistCtrl', ['$scope', 'Lists', function($scope, Lists) {
 listMod.directive('listItem', [function() {
     return {
         restrict: 'E',
-        template: "<div>"+
-                      "<input type='text' ng-model='item.name'></input>"+
-                  "</div>",
+        templateUrl: 'listItem.html',
         scope: {
             item: "=",
+            showkittens: "@",
         },
-        controller: [function() {
+        controller: ['$scope', function($scope) {
+            var h = Math.floor(Math.random() * 100);
+            var w = Math.floor(Math.random() * 100);
+            $scope.kittenUrl = "http://fillmurray.com/"+h+"/"+w;
             return;
         }]
     };

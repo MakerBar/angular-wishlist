@@ -1,6 +1,6 @@
 <div style="float:left" ng-repeat="list in lists">
     {{list.name}}
-    <list-item ng-repeat='item in list.items' item="item"></list-item>
+    <list-item ng-repeat='item in list.items' item="item" showkittens="true"></list-item>
 
     <button ng-click="list.addItem()">Add new</button>
 </div>
