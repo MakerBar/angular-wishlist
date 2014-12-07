@@ -44,7 +44,20 @@ listMod.controller('WishlistCtrl', ['$scope', 'Lists', function($scope, Lists) {
         $scope.newListName = "";
     };
 }]);
-
+listMod.directive('listItem', [function() {
+    return {
+        restrict: 'E',
+        template: "<div>"+
+                      "<input type='text' ng-model='item.name'></input>"+
+                  "</div>",
+        scope: {
+            item: "=",
+        },
+        controller: [function() {
+            return;
+        }]
+    };
+}]);
 var wishlist = angular.module('wishlist', ['ngRoute', 'listMod']).
 config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({

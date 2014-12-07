@@ -1,8 +1,6 @@
 <div style="float:left" ng-repeat="list in lists">
     {{list.name}}
-    <div ng-repeat="item in list.items">
-        <input type="text" ng-model="item.name"></input>
-    </div>
+    <list-item ng-repeat='item in list.items' item="item"></list-item>
 
     <button ng-click="list.addItem()">Add new</button>
 </div>
