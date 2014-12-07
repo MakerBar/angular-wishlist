@@ -17,13 +17,15 @@ listMod.factory('List', [function() {
 listMod.service('Lists', ['List', '$window', function(List, $window) {
     var lists = [];
     var saved = angular.fromJson(sessionStorage.getItem("wishlists"));
-    saved.forEach(function(list_data) {
-        var l = new List(list_data.name);
-        list_data.items.forEach(function(ldi) {
-            l.addItem(ldi.name);
+    if (saved) {
+        saved.forEach(function(list_data) {
+            var l = new List(list_data.name);
+            list_data.items.forEach(function(ldi) {
+                l.addItem(ldi.name);
+            });
+            lists.push(l);
         });
-        lists.push(l);
-    });
+    }
     this.getLists = function() {
         return lists;
     };
