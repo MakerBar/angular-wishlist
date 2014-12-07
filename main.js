@@ -5,8 +5,11 @@ listMod.factory('List', [function() {
     var List = function() {
         this.items = [];
     };
-    List.prototype.addItem = function() {
-        this.items.push({val: ""});
+    List.prototype.addItem = function(val) {
+        if (!val) {
+            val = "";
+        }
+        this.items.push({name: val});
     };
     return List;
 }]);
